@@ -3,4 +3,4 @@ module Main where
 import PrettyHTML.Main
 
 main :: IO ()
-main = putStrLn $ wrapHTML "hello"
+main = putStrLn $ makeHtml "" "hello"
