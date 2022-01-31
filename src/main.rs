@@ -1,7 +1,12 @@
-mod pretty_html;
-
 use pretty_html as pretty;
 
+mod pretty_html;
+
 fn main() {
-    println!("{}", pretty::make_html("its title".to_string(), pretty::Structure::from("its body")));
+    let my_html =
+        pretty::make_html("its title".to_string(),
+                          pretty::h1_(pretty::escape("its <body>".to_string())) +
+                              (pretty::p_("Paragraph #1".to_string()) +
+                                  pretty::p_("Paragraph #2".to_string())));
+    println!("{}", my_html);
 }
