@@ -50,7 +50,7 @@ fn wrap(tag: &str, content: String) -> String {
     format!("{}{}{}", tag, content, close(tag.to_string()))
 }
 
-pub fn escape(content: String) -> String {
+fn escape(content: String) -> String {
     let mut r: String = "".to_string();
     for c in content.chars() {
         let ac: String;
@@ -67,12 +67,28 @@ pub fn escape(content: String) -> String {
     r
 }
 
+pub fn ul_(content: Vec<Structure>) -> Structure {
+    Structure(wrap("<ul>", content.iter()
+        .map(|x| wrap("<li>", x.0.clone()))
+        .collect()))
+}
+
+pub fn ol_(content: Vec<Structure>) -> Structure {
+    Structure(wrap("<ol>", content.iter()
+        .map(|x| wrap("<li>", x.0.clone()))
+        .collect()))
+}
+
+pub fn code_(content: String) -> Structure {
+    Structure(wrap("<pre>", escape(content)))
+}
+
 pub fn p_(content: String) -> Structure {
-    Structure(wrap("<p>", content))
+    Structure(wrap("<p>", escape(content)))
 }
 
 pub fn h1_(content: String) -> Structure {
-    Structure(wrap("<h1>", content))
+    Structure(wrap("<h1>", escape(content)))
 }
 
 pub fn make_html(title: Title, body: Structure) -> Html {
